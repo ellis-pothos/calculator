@@ -1,21 +1,22 @@
+const display = [];
+// display.id = "display";
+
+function updateDisplay() {
+    const displayAsString = display.join("");
+    screen.textContent = displayAsString;  
+    return displayAsString; 
+}
+
+const a = [];
+const operator = [];
+const b = [];
+
 const container = document.querySelector("#container");
 container.classList.add("mainContainer");
 
     const screen = document.createElement("div");
     screen.classList.add("screen");
     container.appendChild(screen);
-
-        const input1stNum = document.createElement("div");
-        input1stNum.classList.add("input");
-        screen.appendChild(input1stNum);
-
-        const inputOperator = document.createElement("div");
-        inputOperator.classList.add("input");
-        screen.appendChild(inputOperator);
-
-        const input2ndNum = document.createElement("div");
-        input2ndNum.classList.add("input");
-        screen.appendChild(input2ndNum);
 
     const buttonContainer = document.createElement("div");
     buttonContainer.classList.add("buttonContainer");
@@ -25,85 +26,157 @@ container.classList.add("mainContainer");
         buttonRowTop.classList.add("buttonRow");
         buttonContainer.appendChild(buttonRowTop);
 
-            const button1 = document.createElement("div");
+            const button1 = document.createElement("button");
             button1.classList.add("button");
-            buttonRowTop.appendChild(button1);
+            button1.textContent = "1";
+            buttonRowTop.appendChild(button1);   
 
-            const button2 = document.createElement("div");
+                button1.addEventListener(`click`, () => {
+                    display.push("1");
+                    updateDisplay();
+                });
+                
+
+            const button2 = document.createElement("button");
             button2.classList.add("button");
+            button2.textContent = "2";
+                
+                button2.addEventListener(`click`, () => {
+                    display.push("2");
+                });
             buttonRowTop.appendChild(button2);
 
-            const button3 = document.createElement("div");
+            const button3 = document.createElement("button");
             button3.classList.add("button");
+            button3.textContent = "3";
+
+                button3.addEventListener(`click`, () => {
+                    display.push("3");
+                });
             buttonRowTop.appendChild(button3);
         
-            const buttonAdd = document.createElement("div");
+            const buttonAdd = document.createElement("button");
             buttonAdd.classList.add("button");
+            buttonAdd.textContent = "+";
+
+                buttonAdd.addEventListener(`click`, () => {
+                    buttonAdd.style.backgroundColor = "black";
+                    display.push("+");
+                });
             buttonRowTop.appendChild(buttonAdd);
 
         const buttonRow2 = document.createElement("div");
         buttonRow2.classList.add("buttonRow");
         buttonContainer.appendChild(buttonRow2);
 
-            const button4 = document.createElement("div");
+            const button4 = document.createElement("button");
             button4.classList.add("button");
+            button4.textContent = "4";
+
+                button4.addEventListener(`click`, () => {
+                    a.push("4");
+                });
             buttonRow2.appendChild(button4);
 
-            const button5 = document.createElement("div");
+            const button5 = document.createElement("button");
             button5.classList.add("button");
+            button5.textContent = "5";
+
+                button5.addEventListener(`click`, () => {
+                    a.push("5");
+                });
             buttonRow2.appendChild(button5);
 
-            const button6 = document.createElement("div");
+            const button6 = document.createElement("button");
             button6.classList.add("button");
+            button6.textContent = "6";
+
+                button6.addEventListener(`click`, () => {
+                    a.push("6");
+                });
             buttonRow2.appendChild(button6);
         
-            const buttonMinus = document.createElement("div");
+            const buttonMinus = document.createElement("button");
             buttonMinus.classList.add("button");
+            buttonMinus.textContent = "-";
+
+                buttonMinus.addEventListener(`click`, () => {
+                    buttonMinus.style.backgroundColor = "black";
+                    operator.push("-");
+                });
             buttonRow2.appendChild(buttonMinus);
 
         const buttonRow3 = document.createElement("div");
         buttonRow3.classList.add("buttonRow");
         buttonContainer.appendChild(buttonRow3);
 
-            const button7 = document.createElement("div");
+            const button7 = document.createElement("button");
             button7.classList.add("button");
+            button7.textContent = "7";
+
+                button7.addEventListener(`click`, () => {
+                    a.push("7");
+                });
             buttonRow3.appendChild(button7);
 
-            const button8 = document.createElement("div");
+            const button8 = document.createElement("button");
             button8.classList.add("button");
+            button8.textContent = "8";
+
+                button8.addEventListener(`click`, () => {
+                    a.push("8");
+                });
             buttonRow3.appendChild(button8);
 
-            const button9 = document.createElement("div");
+            const button9 = document.createElement("button");
             button9.classList.add("button");
+            button9.textContent = "9";
+
+                button9.addEventListener(`click`, () => {
+                    a.push("9");
+                });
             buttonRow3.appendChild(button9);
         
-            const buttonMultiply = document.createElement("div");
+            const buttonMultiply = document.createElement("button");
             buttonMultiply.classList.add("button");
+            buttonMultiply.textContent = "x";
+
+                buttonMultiply.addEventListener(`click`, () => {
+                    buttonMultiply.style.backgroundColor = "black";
+                    operator.push("*");
+                });
             buttonRow3.appendChild(buttonMultiply);
 
         const buttonRow4 = document.createElement("div");
         buttonRow4.classList.add("buttonRow");
         buttonContainer.appendChild(buttonRow4);
 
-            const button0 = document.createElement("div");
+            const button0 = document.createElement("button");
             button0.classList.add("button");
+            button0.textContent = "0";
             buttonRow4.appendChild(button0);
 
-            const buttonDecimal = document.createElement("div");
-            buttonDecimal.classList.add("button");
-            buttonRow4.appendChild(buttonDecimal);
+            const buttonClear = document.createElement("button");
+            buttonClear.classList.add("button");
+            buttonClear.textContent = "CLR";
+            buttonRow4.appendChild(buttonClear);
 
-            const buttonEqual = document.createElement("div");
+            const buttonEqual = document.createElement("button");
             buttonEqual.classList.add("button");
+            buttonEqual.textContent = "=";
             buttonRow4.appendChild(buttonEqual);
         
-            const buttonDivide = document.createElement("div");
+            const buttonDivide = document.createElement("button");
             buttonDivide.classList.add("button");
+            buttonDivide.textContent = "%";
+
+                buttonDivide.addEventListener(`click`, () => {
+                    buttonDivide.style.backgroundColor = "black";
+                    operator.push("/");
+                });
             buttonRow4.appendChild(buttonDivide);
-            
-// const a 
-// const operator
-// const b 
+                
+         
 
 const add = function(a, b) {
     return a + b; 
@@ -120,3 +193,17 @@ const add = function(a, b) {
   const divide = function (a, b) {
     return a / b;
   }
+
+  const operate = function(a, operator, b) {
+    if (operator = "+") {
+        return a + b;
+    } else if (operator = "-") {
+        return a - b;
+    } else if (operator = "/") {
+        return a / b;
+    } else if (operator = "x") {
+        return a * b;
+    } else {
+        return "ERROR";
+    }
+  }; 
