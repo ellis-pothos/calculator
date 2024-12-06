@@ -101,9 +101,9 @@ container.classList.add("mainContainer");
             buttonDivide.classList.add("button");
             buttonRow4.appendChild(buttonDivide);
             
-const a 
-const operator
-const b 
+// const a 
+// const operator
+// const b 
 
 const add = function(a, b) {
     return a + b; 
