@@ -1,5 +1,9 @@
 let display = [];
 
+const firstNumber = [];
+let operator = [];
+const secondNumber = [];
+
 function updateDisplay() {
     const displayAsString = display.join("");
     screen.textContent = displayAsString;  
@@ -10,10 +14,6 @@ function clearDisplay() {
     display.length = 0;
     screen.textContent = "";
 }
-
-const firstNumber = [];
-let operator = [];
-const secondNumber = [];
 
 const container = document.querySelector("#container");
 container.classList.add("mainContainer");
@@ -45,7 +45,8 @@ container.classList.add("mainContainer");
             button2.textContent = "2";
                 
                 button2.addEventListener(`click`, () => {
-                    display.push("2");
+                    display.push("2")
+                    updateDisplay();
                 });
             buttonRowTop.appendChild(button2);
 
@@ -54,7 +55,8 @@ container.classList.add("mainContainer");
             button3.textContent = "3";
 
                 button3.addEventListener(`click`, () => {
-                    display.push("3");
+                    display.push("3")
+                    updateDisplay();
                 });
             buttonRowTop.appendChild(button3);
         
@@ -79,7 +81,8 @@ container.classList.add("mainContainer");
             button4.textContent = "4";
 
                 button4.addEventListener(`click`, () => {
-                    a.push("4");
+                    display.push("4");
+                    updateDisplay();
                 });
             buttonRow2.appendChild(button4);
 
@@ -88,7 +91,8 @@ container.classList.add("mainContainer");
             button5.textContent = "5";
 
                 button5.addEventListener(`click`, () => {
-                    a.push("5");
+                    display.push("5");
+                    updateDisplay();
                 });
             buttonRow2.appendChild(button5);
 
@@ -97,7 +101,8 @@ container.classList.add("mainContainer");
             button6.textContent = "6";
 
                 button6.addEventListener(`click`, () => {
-                    a.push("6");
+                    display.push("6");
+                    updateDisplay();
                 });
             buttonRow2.appendChild(button6);
         
@@ -106,7 +111,9 @@ container.classList.add("mainContainer");
             buttonMinus.textContent = "-";
 
                 buttonMinus.addEventListener(`click`, () => {
-                    buttonMinus.style.backgroundColor = "black";
+                    const displayAsString = display.join("");
+                    firstNumber.push(displayAsString);
+                    clearDisplay();
                     operator.push("-");
                 });
             buttonRow2.appendChild(buttonMinus);
@@ -120,7 +127,8 @@ container.classList.add("mainContainer");
             button7.textContent = "7";
 
                 button7.addEventListener(`click`, () => {
-                    a.push("7");
+                    display.push("7");
+                    updateDisplay();
                 });
             buttonRow3.appendChild(button7);
 
@@ -129,7 +137,8 @@ container.classList.add("mainContainer");
             button8.textContent = "8";
 
                 button8.addEventListener(`click`, () => {
-                    a.push("8");
+                    display.push("8");
+                    updateDisplay();
                 });
             buttonRow3.appendChild(button8);
 
@@ -138,7 +147,8 @@ container.classList.add("mainContainer");
             button9.textContent = "9";
 
                 button9.addEventListener(`click`, () => {
-                    a.push("9");
+                    display.push("9");
+                    updateDisplay();
                 });
             buttonRow3.appendChild(button9);
         
@@ -147,8 +157,10 @@ container.classList.add("mainContainer");
             buttonMultiply.textContent = "x";
 
                 buttonMultiply.addEventListener(`click`, () => {
-                    buttonMultiply.style.backgroundColor = "black";
-                    operator.push("*");
+                    const displayAsString = display.join("");
+                    firstNumber.push(displayAsString);
+                    clearDisplay();
+                    operator.push("x");
                 });
             buttonRow3.appendChild(buttonMultiply);
 
@@ -159,11 +171,20 @@ container.classList.add("mainContainer");
             const button0 = document.createElement("button");
             button0.classList.add("button");
             button0.textContent = "0";
+
+                button0.addEventListener(`click`, () => {
+                    display.push("0");
+                    updateDisplay();
+                });
             buttonRow4.appendChild(button0);
 
             const buttonClear = document.createElement("button");
             buttonClear.classList.add("button");
             buttonClear.textContent = "CLR";
+
+                buttonClear.addEventListener(`click`, () => {
+                    clearDisplay();
+                })
             buttonRow4.appendChild(buttonClear);
 
             const buttonEqual = document.createElement("button");
@@ -183,8 +204,10 @@ container.classList.add("mainContainer");
             buttonDivide.textContent = "%";
 
                 buttonDivide.addEventListener(`click`, () => {
-                    buttonDivide.style.backgroundColor = "black";
-                    operator.push("/");
+                    const displayAsString = display.join("");
+                    firstNumber.push(displayAsString);
+                    clearDisplay();
+                    operator.push("-");
                 });
             buttonRow4.appendChild(buttonDivide);
                 
