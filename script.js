@@ -65,10 +65,26 @@ container.classList.add("mainContainer");
             buttonAdd.textContent = "+";
 
                 buttonAdd.addEventListener(`click`, () => {
-                    const displayAsString = display.join("");
-                    firstNumber.push(displayAsString);
-                    clearDisplay();
-                    operator.push("+");
+                    if (operator.length === 0) {
+                        const displayAsString = display.join("");
+                        firstNumber.push(displayAsString);
+                        clearDisplay();
+                        operator.push("+");                        
+                    } else if (operator.length > 0) {                                          
+                        const displayAsString = display.join("");
+                        secondNumber.push(displayAsString);
+                        clearDisplay();
+                        operate();
+
+                        const resultAsString = display.join("");
+                        firstNumber.push(resultAsString);
+
+                        operator.push("+");
+                        updateDisplay();
+                        console.log("first number is " + firstNumber);
+                        console.log("second number is " + secondNumber);
+                        display.length = 0; 
+                    }
                 });
             buttonRowTop.appendChild(buttonAdd);
 
@@ -111,10 +127,18 @@ container.classList.add("mainContainer");
             buttonMinus.textContent = "-";
 
                 buttonMinus.addEventListener(`click`, () => {
-                    const displayAsString = display.join("");
-                    firstNumber.push(displayAsString);
-                    clearDisplay();
-                    operator.push("-");
+                    if (operator.length === 0) {
+                        const displayAsString = display.join("");
+                        firstNumber.push(displayAsString);
+                        operator.push("-");
+                        clearDisplay();     
+                    } else if (operator.length > 0) {
+                        const displayAsString = display.join("");
+                        secondNumber.push(displayAsString);
+                        operator.push("-");   
+                        clearDisplay();
+                        operate();                        
+                    }
                 });
             buttonRow2.appendChild(buttonMinus);
 
@@ -157,10 +181,18 @@ container.classList.add("mainContainer");
             buttonMultiply.textContent = "x";
 
                 buttonMultiply.addEventListener(`click`, () => {
-                    const displayAsString = display.join("");
-                    firstNumber.push(displayAsString);
-                    clearDisplay();
-                    operator.push("x");
+                    if (operator.length === 0) {
+                        const displayAsString = display.join("");
+                        firstNumber.push(displayAsString);
+                        clearDisplay();
+                        operator.push("x");                        
+                    } else if (operator.length > 0) {
+                        const displayAsString = display.join("");
+                        secondNumber.push(displayAsString);
+                        operator.push("x");   
+                        clearDisplay();
+                        operate();                        
+                    }
                 });
             buttonRow3.appendChild(buttonMultiply);
 
@@ -204,33 +236,101 @@ container.classList.add("mainContainer");
             buttonDivide.textContent = "%";
 
                 buttonDivide.addEventListener(`click`, () => {
-                    const displayAsString = display.join("");
-                    firstNumber.push(displayAsString);
-                    clearDisplay();
-                    operator.push("-");
+                    if (operator.length === 0) {
+                        const displayAsString = display.join("");
+                        firstNumber.push(displayAsString);
+                        clearDisplay();
+                        operator.push("/");                        
+                    } else if (operator.length > 0) {
+                        const displayAsString = display.join("");
+                        secondNumber.push(displayAsString);
+                        operator.push("/");   
+                        clearDisplay();
+                        operate();                        
+                    }
                 });
             buttonRow4.appendChild(buttonDivide);
                 
          
 const operate = function() {
-    const operatorAsString = operator.join("");
-    const a = Number(firstNumber);
-    const b = Number(secondNumber);
+    let a = Number(firstNumber);
+    let b = Number(secondNumber);
+        
+        if (operator.length === 1) {
+        const operatorAsString = operator.join("");
 
-    if (operatorAsString === "+") {
-        let result = a + b;
-        screen.textContent = result; 
-    } else if (operatorAsString === "-") {
-        let result = a - b;
-        screen.textContent = result; 
-    } else if (operatorAsString === "/") {
-        let result = a / b;
-        screen.textContent = result; 
-    } else if (operatorAsString === "x") {
-        let result = a * b;
-        screen.textContent = result; 
-    } else {
-        let result = "ERROR";
-        screen.textContent = result; 
+        if (operatorAsString === "+") {
+            let result = a + b;
+            display.push(result);
+            updateDisplay();
+            firstNumber.length = 0; 
+            secondNumber.length = 0; 
+        } else if (operatorAsString === "-") {
+            let result = a - b;
+            display.push(result);
+            updateDisplay();
+            firstNumber.length = 0; 
+            secondNumber.length = 0; 
+        } else if (operatorAsString === "/") {
+            let result = a / b;
+            display.push(result);
+            updateDisplay();
+            firstNumber.length = 0; 
+            secondNumber.length = 0; 
+        } else if (operatorAsString === "x") {
+            let result = a * b;
+            display.push(result);
+            updateDisplay();
+            firstNumber.length = 0; 
+            secondNumber.length = 0; 
+        } else {
+            let result = "ERROR";
+            display.push(result);
+            updateDisplay();
+            firstNumber.length = 0; 
+            secondNumber.length = 0; 
+        }
+    } else if (operator.length > 1){
+        const operatorAsString = operator[operator.length - 1];
+        console.log("first number is now the same as the previous result: " + firstNumber);
+        console.log("second number is now the same as display: " + secondNumber);
+        
+        let b = Number(secondNumber);
+        
+        if (operatorAsString === "+") {
+            let result = a + b;
+            display.push(result);
+            updateDisplay();
+            firstNumber.push(result);
+            firstNumber.length = 0;
+        } else if (operatorAsString === "-") {
+            let result = a - b;
+            display.push(result);
+            updateDisplay();
+            firstNumber.length = 0;
+            firstNumber.push(result);
+            display.length = 0; 
+            secondNumber.length = 0;
+        } else if (operatorAsString === "/") {
+            let result = a / b;
+            display.push(result);
+            updateDisplay();
+            firstNumber.length = 0;
+            firstNumber.push(result);
+            display.length = 0; 
+            secondNumber.length = 0;
+        } else if (operatorAsString === "x") {
+            let result = a * b;
+            display.push(result);
+            updateDisplay();
+            firstNumber.length = 0;
+            firstNumber.push(result);
+            display.length = 0; 
+            secondNumber.length = 0;
+        } else {
+            let result = "ERROR";
+            display.push(result);
+            updateDisplay();
+        }
     }
   }; 
