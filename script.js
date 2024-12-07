@@ -1,5 +1,4 @@
-const display = [];
-// display.id = "display";
+let display = [];
 
 function updateDisplay() {
     const displayAsString = display.join("");
@@ -7,9 +6,14 @@ function updateDisplay() {
     return displayAsString; 
 }
 
-const a = [];
-const operator = [];
-const b = [];
+function clearDisplay() {
+    display.length = 0;
+    screen.textContent = "";
+}
+
+const firstNumber = [];
+let operator = [];
+const secondNumber = [];
 
 const container = document.querySelector("#container");
 container.classList.add("mainContainer");
@@ -29,13 +33,12 @@ container.classList.add("mainContainer");
             const button1 = document.createElement("button");
             button1.classList.add("button");
             button1.textContent = "1";
-            buttonRowTop.appendChild(button1);   
-
+ 
                 button1.addEventListener(`click`, () => {
                     display.push("1");
                     updateDisplay();
                 });
-                
+            buttonRowTop.appendChild(button1);                  
 
             const button2 = document.createElement("button");
             button2.classList.add("button");
@@ -60,8 +63,10 @@ container.classList.add("mainContainer");
             buttonAdd.textContent = "+";
 
                 buttonAdd.addEventListener(`click`, () => {
-                    buttonAdd.style.backgroundColor = "black";
-                    display.push("+");
+                    const displayAsString = display.join("");
+                    firstNumber.push(displayAsString);
+                    clearDisplay();
+                    operator.push("+");
                 });
             buttonRowTop.appendChild(buttonAdd);
 
@@ -164,6 +169,13 @@ container.classList.add("mainContainer");
             const buttonEqual = document.createElement("button");
             buttonEqual.classList.add("button");
             buttonEqual.textContent = "=";
+
+                buttonEqual.addEventListener(`click`, () => {
+                    const displayAsString = display.join("");
+                    secondNumber.push(displayAsString);
+                    clearDisplay();
+                    operate();
+                });     
             buttonRow4.appendChild(buttonEqual);
         
             const buttonDivide = document.createElement("button");
@@ -177,33 +189,25 @@ container.classList.add("mainContainer");
             buttonRow4.appendChild(buttonDivide);
                 
          
+const operate = function() {
+    const operatorAsString = operator.join("");
+    const a = Number(firstNumber);
+    const b = Number(secondNumber);
 
-const add = function(a, b) {
-    return a + b; 
-  };
-  
-  const subtract = function(a, b) {
-      return a - b;
-  };
-
-  const multiply = function (a, b) {
-    return a * b;
-  }
-
-  const divide = function (a, b) {
-    return a / b;
-  }
-
-  const operate = function(a, operator, b) {
-    if (operator = "+") {
-        return a + b;
-    } else if (operator = "-") {
-        return a - b;
-    } else if (operator = "/") {
-        return a / b;
-    } else if (operator = "x") {
-        return a * b;
+    if (operatorAsString === "+") {
+        let result = a + b;
+        screen.textContent = result; 
+    } else if (operatorAsString === "-") {
+        let result = a - b;
+        screen.textContent = result; 
+    } else if (operatorAsString === "/") {
+        let result = a / b;
+        screen.textContent = result; 
+    } else if (operatorAsString === "x") {
+        let result = a * b;
+        screen.textContent = result; 
     } else {
-        return "ERROR";
+        let result = "ERROR";
+        screen.textContent = result; 
     }
   }; 
