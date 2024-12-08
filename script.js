@@ -10,6 +10,12 @@ function updateDisplay() {
     return displayAsString; 
 }
 
+function clearAll() {
+    clearDisplay();
+    firstNumber.length = 0;
+    secondNumber.length = 0; 
+}
+
 function clearDisplay() {
     display.length = 0;
     screen.textContent = "";
@@ -26,6 +32,15 @@ container.classList.add("mainContainer");
     buttonContainer.classList.add("buttonContainer");
     container.appendChild(buttonContainer);
 
+        const buttonClear = document.createElement("button");
+        buttonClear.classList.add("buttonClear");
+        buttonClear.textContent = "CLEAR ALL";
+
+            buttonClear.addEventListener(`click`, () => {
+                clearAll()
+            })
+            buttonContainer.appendChild(buttonClear);
+    
         const buttonRowTop = document.createElement("div");
         buttonRowTop.classList.add("buttonRow");
         buttonContainer.appendChild(buttonRowTop);
@@ -35,8 +50,14 @@ container.classList.add("mainContainer");
             button1.textContent = "1";
  
                 button1.addEventListener(`click`, () => {
-                    display.push("1");
-                    updateDisplay();
+                    if (operator.length === 0) {
+                        clearAll();
+                        display.push("1");
+                        updateDisplay();
+                    } else if (operator.length > 0){
+                       display.push("1");
+                        updateDisplay(); 
+                    }
                 });
             buttonRowTop.appendChild(button1);                  
 
@@ -66,25 +87,21 @@ container.classList.add("mainContainer");
 
                 buttonAdd.addEventListener(`click`, () => {
                     if (operator.length === 0) {
-                        firstNumber.push(display.join(""));
+                        firstNumber.push(parseFloat(display.join('')));
                         clearDisplay();
                         operator.push("+");                        
-                    } else if (operator.length > 0 && operator[operator.length - 1] !== "=") {                                          
-                        secondNumber.push(display.join(""));
+                    } else if (operator.length > 0) {                                          
+                        secondNumber.push(parseFloat(display.join('')));
                         clearDisplay();
                         operate();
                         secondNumber.length = 0; 
                         firstNumber.length = 0; 
                         
-                        firstNumber.push(display.join(""));
+                        firstNumber.push(parseFloat(display.join('')));
+                        operator.length = 0; 
                         operator.push("+");
                         updateDisplay();
                         display.length = 0; 
-                    } else if (operator[operator.length - 1] === "=") {
-                        operator.push("+");
-                        clearDisplay();
-                        operate();
-                        display.length = 0;
                     }
                 });
             buttonRowTop.appendChild(buttonAdd);
@@ -129,25 +146,21 @@ container.classList.add("mainContainer");
 
                 buttonMinus.addEventListener(`click`, () => {
                     if (operator.length === 0) {
-                        firstNumber.push(display.join(""));
+                        firstNumber.push(parseFloat(display.join('')));
                         clearDisplay();
                         operator.push("-");                        
-                    } else if (operator.length > 0 && operator[operator.length - 1] !== "=") {                                          
-                        secondNumber.push(display.join(""));
-                        clearDisplay();
+                    } else if (operator.length > 0) {                                          
+                        secondNumber.push(parseFloat(display.join('')));
                         operate();
+                        clearDisplay();
                         secondNumber.length = 0; 
                         firstNumber.length = 0; 
                         
-                        firstNumber.push(display.join(""));
+                        firstNumber.push(parseFloat(display.join('')));
+                        operator.length = 0; 
                         operator.push("-");
                         updateDisplay();
                         display.length = 0; 
-                    } else if (operator[operator.length - 1] === "=") {
-                        operator.push("-");
-                        clearDisplay();
-                        operate();
-                        display.length = 0;
                     }
                 });
             buttonRow2.appendChild(buttonMinus);
@@ -192,25 +205,21 @@ container.classList.add("mainContainer");
 
                 buttonMultiply.addEventListener(`click`, () => {
                     if (operator.length === 0) {
-                        firstNumber.push(display.join(""));
+                        firstNumber.push(parseFloat(display.join('')));
                         clearDisplay();
                         operator.push("x");                        
-                    } else if (operator.length > 0 && operator[operator.length - 1] !== "=") {                                          
-                        secondNumber.push(display.join(""));
-                        clearDisplay();
+                    } else if (operator.length > 0) {                                          
+                        secondNumber.push(parseFloat(display.join('')));
                         operate();
+                        clearDisplay();
                         secondNumber.length = 0; 
                         firstNumber.length = 0; 
                         
-                        firstNumber.push(display.join(""));
+                        firstNumber.push(parseFloat(display.join('')));
+                        operator.length = 0; 
                         operator.push("x");
                         updateDisplay();
-                        // display.length = 0; 
-                    } else if (operator[operator.length - 1] === "=") {
-                        operator.push("x");
-                        clearDisplay();
-                        operate();
-                        // display.length = 0;
+                        display.length = 0; 
                     }
                 });
             buttonRow3.appendChild(buttonMultiply);
@@ -229,23 +238,26 @@ container.classList.add("mainContainer");
                 });
             buttonRow4.appendChild(button0);
 
-            const buttonClear = document.createElement("button");
-            buttonClear.classList.add("button");
-            buttonClear.textContent = "CLR ALL";
+            const buttonDecimal = document.createElement("button");
+            buttonDecimal.classList.add("button");
+            buttonDecimal.textContent = ".";
 
-                buttonClear.addEventListener(`click`, () => {
-                    clearDisplay();
-                    firstNumber.length = 0;
-                    secondNumber.length = 0; 
-                })
-            buttonRow4.appendChild(buttonClear);
+                buttonDecimal.addEventListener(`click`, () => {
+                    if (display.includes(".")) {
+ 
+                    } else {
+                    display.push(".");
+                    updateDisplay(); 
+                    }
+                });
+                buttonRow4.appendChild(buttonDecimal);
 
             const buttonEqual = document.createElement("button");
             buttonEqual.classList.add("button");
             buttonEqual.textContent = "=";
 
                 buttonEqual.addEventListener(`click`, () => {
-                    secondNumber.push(display.join(""));
+                    secondNumber.push(parseFloat(display.join('')));
                     clearDisplay();
                     operate();
 
@@ -253,8 +265,7 @@ container.classList.add("mainContainer");
                     secondNumber.length = 0; 
 
                     updateDisplay();
-                    firstNumber.push(display.join(""));
-                    operator.push("=");
+                    firstNumber.push(display[0]);
                 });     
             buttonRow4.appendChild(buttonEqual);
         
@@ -264,105 +275,98 @@ container.classList.add("mainContainer");
 
                 buttonDivide.addEventListener(`click`, () => {
                     if (operator.length === 0) {
-                        firstNumber.push(display.join(""));
+                        firstNumber.push(parseFloat(display.join('')));
                         clearDisplay();
                         operator.push("/");                        
-                    } else if (operator.length > 0 && operator[operator.length - 1] !== "=") {                                          
-                        secondNumber.push(display.join(""));
-                        clearDisplay();
+                    } else if (operator.length > 0) {                                          
+                        secondNumber.push(parseFloat(display.join('')));
                         operate();
+                        clearDisplay();
                         secondNumber.length = 0; 
                         firstNumber.length = 0; 
                         
-                        firstNumber.push(display.join(""));
+                        firstNumber.push(parseFloat(display.join('')));
+                        operator.length = 0; 
                         operator.push("/");
                         updateDisplay();
                         display.length = 0; 
-                    } else if (operator[operator.length - 1] === "=") {
-                        operator.push("/");
-                        clearDisplay();
-                        operate();
-                        display.length = 0;
                     }
                 });
             buttonRow4.appendChild(buttonDivide);
                 
          
 const operate = function() {
-    let a = Number(firstNumber);
-    let b = Number(secondNumber);
+    let a = parseFloat(firstNumber);
+    let b = parseFloat(secondNumber);
         
         if (operator.length === 1) {
-        const operatorAsString = operator.join("");
+        // const operatorAsString = operator.join("");
 
-        if (operatorAsString === "+") {
-            let result = a + b;
-            display.push(result);
-            updateDisplay();
-            // display.length = 0; 
-            firstNumber.length = 0;
-            secondNumber.length = 0; 
-            firstNumber.push(result);
-            console.log(result);
-            console.log("firstnum is " + firstNumber);
-            console.log("second number is " + secondNumber);  
-        } else if (operatorAsString === "-") {
-            let result = a - b;
-            display.push(result);
-            updateDisplay();
-            // display.length = 0; 
-            firstNumber.length = 0;
-            secondNumber.length = 0; 
-            firstNumber.push(result);
-        } else if (operatorAsString === "/") {
-            let result = (a / b);
-            display.push(result);
-            updateDisplay();
-            // display.length = 0; 
-            firstNumber.length = 0;
-            secondNumber.length = 0; 
-            firstNumber.push(result);
-        } else if (operatorAsString === "x") {
-            let result = (a * b);
-            display.push(result);
-            updateDisplay();
-            // display.length = 0; 
-            firstNumber.length = 0;
-            secondNumber.length = 0; 
-            firstNumber.push(result);
-        } else {
-            let result = "ERROR";
-            display.push(result);
-            updateDisplay();
-            // firstNumber.length = 0; 
-            // secondNumber.length = 0; 
-        }  
-    } else if (operator.length > 1){
-        const operatorAsString = operator[operator.length - 1];
-        
-        let b = Number(secondNumber);
-        
-        if (operatorAsString === "+") {
-            let result = a + b;
-            display.push(result);
-            updateDisplay();
-        } else if (operatorAsString === "-") {
-            let result = a - b;
-            display.push(result);
-            updateDisplay();
-         } else if (operatorAsString === "/") {
-            let result = (a / b);
-            display.push(result);
-            updateDisplay();
-        } else if (operatorAsString === "x") {
-            let result = (a * b);
-            display.push(result);
-            updateDisplay();
+            if (operator[0] === "+") {
+                let result = a + b;
+                display.push(result);
+                updateDisplay();
+                firstNumber.length = 0;
+                secondNumber.length = 0; 
+                firstNumber.push(result);
+                operator.length = 0;
+            } else if (operator[0] === "-") {
+                let result = a - b;
+                display.push(result);
+                updateDisplay();
+                firstNumber.length = 0;
+                secondNumber.length = 0; 
+                firstNumber.push(result);
+                operator.length = 0;
+            } else if (operator[0] === "/") {
+                let result = (a / b);
+                display.push(result);
+                updateDisplay();
+                firstNumber.length = 0;
+                secondNumber.length = 0; 
+                firstNumber.push(result);
+                operator.length = 0;
+            } else if (operator[0] === "x") {
+                let result = (a * b);
+                display.push(result);
+                updateDisplay();
+                firstNumber.length = 0;
+                secondNumber.length = 0; 
+                firstNumber.push(result);
+                operator.length = 0;
+            } else {
+                let result = "ERROR";
+                display.push(result);
+                updateDisplay();
+                firstNumber.length = 0; 
+                secondNumber.length = 0; 
+            }  
+        // } else if (operator.length > 1){
+        //     const operatorAsString = operator[operator.length - 1];
             
-        } else {
-            let result = "ERROR";
-            display.push(result);
-            updateDisplay();
-        }
-    } 
+        //     let b = parseFloat(secondNumber);
+            
+        //     if (operatorAsString === "+") {
+        //         let result = a + b;
+        //         display.push(result);
+        //         updateDisplay();
+        //     } else if (operatorAsString === "-") {
+        //         let result = a - b;
+        //         display.push(result);
+        //         updateDisplay();
+        //     } else if (operatorAsString === "/") {
+        //         let result = (a / b);
+        //         display.push(result);
+        //         updateDisplay();
+        //     } else if (operatorAsString === "x") {
+        //         let result = (a * b);
+        //         display.push(result);
+        //         updateDisplay();
+                
+        //     } else {
+        //         let result = "ERROR";
+        //         display.push(result);
+        //         updateDisplay();
+        //     }
+        } 
   }; 
