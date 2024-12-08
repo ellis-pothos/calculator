@@ -66,21 +66,17 @@ container.classList.add("mainContainer");
 
                 buttonAdd.addEventListener(`click`, () => {
                     if (operator.length === 0) {
-                        const displayAsString = display.join("");
-                        firstNumber.push(displayAsString);
+                        firstNumber.push(display.join(""));
                         clearDisplay();
                         operator.push("+");                        
                     } else if (operator.length > 0 && operator[operator.length - 1] !== "=") {                                          
-                        const displayAsString = display.join("");
-                        secondNumber.push(displayAsString);
+                        secondNumber.push(display.join(""));
                         clearDisplay();
                         operate();
                         secondNumber.length = 0; 
-
-                        const resultAsString = display.join("");
                         firstNumber.length = 0; 
-                        firstNumber.push(resultAsString);
-
+                        
+                        firstNumber.push(display.join(""));
                         operator.push("+");
                         updateDisplay();
                         display.length = 0; 
@@ -133,24 +129,25 @@ container.classList.add("mainContainer");
 
                 buttonMinus.addEventListener(`click`, () => {
                     if (operator.length === 0) {
-                        const displayAsString = display.join("");
-                        firstNumber.push(displayAsString);
+                        firstNumber.push(display.join(""));
                         clearDisplay();
                         operator.push("-");                        
-                    } else if (operator.length > 0) {                                          
-                        const displayAsString = display.join("");
-                        secondNumber.push(displayAsString);
+                    } else if (operator.length > 0 && operator[operator.length - 1] !== "=") {                                          
+                        secondNumber.push(display.join(""));
                         clearDisplay();
                         operate();
-
-                        const resultAsString = display.join("");
-                        firstNumber.push(resultAsString);
-
+                        secondNumber.length = 0; 
+                        firstNumber.length = 0; 
+                        
+                        firstNumber.push(display.join(""));
                         operator.push("-");
                         updateDisplay();
-                        console.log("first number is " + firstNumber);
-                        console.log("second number is " + secondNumber);
                         display.length = 0; 
+                    } else if (operator[operator.length - 1] === "=") {
+                        operator.push("-");
+                        clearDisplay();
+                        operate();
+                        display.length = 0;
                     }
                 });
             buttonRow2.appendChild(buttonMinus);
@@ -195,24 +192,25 @@ container.classList.add("mainContainer");
 
                 buttonMultiply.addEventListener(`click`, () => {
                     if (operator.length === 0) {
-                        const displayAsString = display.join("");
-                        firstNumber.push(displayAsString);
+                        firstNumber.push(display.join(""));
                         clearDisplay();
                         operator.push("x");                        
-                    } else if (operator.length > 0) {                                          
-                        const displayAsString = display.join("");
-                        secondNumber.push(displayAsString);
+                    } else if (operator.length > 0 && operator[operator.length - 1] !== "=") {                                          
+                        secondNumber.push(display.join(""));
                         clearDisplay();
                         operate();
-
-                        const resultAsString = display.join("");
-                        firstNumber.push(resultAsString);
-
+                        secondNumber.length = 0; 
+                        firstNumber.length = 0; 
+                        
+                        firstNumber.push(display.join(""));
                         operator.push("x");
                         updateDisplay();
-                        console.log("first number is " + firstNumber);
-                        console.log("second number is " + secondNumber);
-                        display.length = 0; 
+                        // display.length = 0; 
+                    } else if (operator[operator.length - 1] === "=") {
+                        operator.push("x");
+                        clearDisplay();
+                        operate();
+                        // display.length = 0;
                     }
                 });
             buttonRow3.appendChild(buttonMultiply);
@@ -247,17 +245,16 @@ container.classList.add("mainContainer");
             buttonEqual.textContent = "=";
 
                 buttonEqual.addEventListener(`click`, () => {
-                    const displayAsString = display.join("");
-                    secondNumber.push(displayAsString);
+                    secondNumber.push(display.join(""));
                     clearDisplay();
                     operate();
 
                     firstNumber.length = 0; 
                     secondNumber.length = 0; 
+
                     updateDisplay();
                     firstNumber.push(display.join(""));
                     operator.push("=");
-                    console.log("firstnumber after pressing = is " + firstNumber);
                 });     
             buttonRow4.appendChild(buttonEqual);
         
@@ -267,24 +264,25 @@ container.classList.add("mainContainer");
 
                 buttonDivide.addEventListener(`click`, () => {
                     if (operator.length === 0) {
-                        const displayAsString = display.join("");
-                        firstNumber.push(displayAsString);
+                        firstNumber.push(display.join(""));
                         clearDisplay();
                         operator.push("/");                        
-                    } else if (operator.length > 0) {                                          
-                        const displayAsString = display.join("");
-                        secondNumber.push(displayAsString);
+                    } else if (operator.length > 0 && operator[operator.length - 1] !== "=") {                                          
+                        secondNumber.push(display.join(""));
                         clearDisplay();
                         operate();
-
-                        const resultAsString = display.join("");
-                        firstNumber.push(resultAsString);
-
+                        secondNumber.length = 0; 
+                        firstNumber.length = 0; 
+                        
+                        firstNumber.push(display.join(""));
                         operator.push("/");
                         updateDisplay();
-                        console.log("first number is " + firstNumber);
-                        console.log("second number is " + secondNumber);
                         display.length = 0; 
+                    } else if (operator[operator.length - 1] === "=") {
+                        operator.push("/");
+                        clearDisplay();
+                        operate();
+                        display.length = 0;
                     }
                 });
             buttonRow4.appendChild(buttonDivide);
@@ -312,20 +310,26 @@ const operate = function() {
             let result = a - b;
             display.push(result);
             updateDisplay();
-            // firstNumber.length = 0; 
-            // secondNumber.length = 0; 
+            // display.length = 0; 
+            firstNumber.length = 0;
+            secondNumber.length = 0; 
+            firstNumber.push(result);
         } else if (operatorAsString === "/") {
-            let result = a / b;
+            let result = (a / b);
             display.push(result);
             updateDisplay();
-            // firstNumber.length = 0; 
-            // secondNumber.length = 0; 
+            // display.length = 0; 
+            firstNumber.length = 0;
+            secondNumber.length = 0; 
+            firstNumber.push(result);
         } else if (operatorAsString === "x") {
-            let result = a * b;
+            let result = (a * b);
             display.push(result);
             updateDisplay();
-            // firstNumber.length = 0; 
-            // secondNumber.length = 0; 
+            // display.length = 0; 
+            firstNumber.length = 0;
+            secondNumber.length = 0; 
+            firstNumber.push(result);
         } else {
             let result = "ERROR";
             display.push(result);
@@ -341,27 +345,20 @@ const operate = function() {
         if (operatorAsString === "+") {
             let result = a + b;
             display.push(result);
-            // firstNumber.push(result);
             updateDisplay();
-            // firstNumber.length = 0;
         } else if (operatorAsString === "-") {
             let result = a - b;
             display.push(result);
-            firstNumber.push(result);
             updateDisplay();
-            // firstNumber.length = 0;
-        } else if (operatorAsString === "/") {
+         } else if (operatorAsString === "/") {
             let result = (a / b);
             display.push(result);
-            firstNumber.push(result);
             updateDisplay();
-            // firstNumber.length = 0;
         } else if (operatorAsString === "x") {
             let result = (a * b);
             display.push(result);
-            firstNumber.push(result);
             updateDisplay();
-            // firstNumber.length = 0;
+            
         } else {
             let result = "ERROR";
             display.push(result);
